@@ -22,10 +22,14 @@ class TencentFaceCompare(io.ComfyNode):
                 io.Combo.Input("face_matching_strategy", display_name="人脸选择策略",
                                options=list(STRATEGIES), default="置信度最高"),
                 io.Int.Input("quality_control", display_name="图片质量要求", default=0, min=0, max=4,
-                             tooltip="0 不控制；1 较低；2 一般；3 较高；4 很高。"),
+                             tooltip="控制人脸图片的质量检查严格程度：0 不启用质量控制；1 较低；2 一般；3 较高；4 很高。"
+                                     "数值越高，对模糊、遮挡和光照等问题越严格；不达标时会报错。"
+                                     "不会改善图片或提高相似度分数，一般保持 0 即可。"),
                 io.Boolean.Input("rotate_detection", display_name="旋转检测", default=False),
-                io.Int.Input("refresh_id", display_name="重新请求编号", default=0, min=0, max=2147483647,
-                             tooltip="修改此数值可重新调用腾讯云；相同输入保留正常缓存。"),
+                io.Int.Input("refresh_id", display_name="重新比对（改值生效）", default=0, min=0, max=2147483647,
+                             tooltip="相同图片和参数通常会复用上次结果。想重新调用腾讯云时，将此数值加 1，再点击运行。"
+                                     "更换图片或修改其他参数后会自动重新比对，无需每次改动此项。"
+                                     "该数值不是请求次数，也不影响分数；重新调用可能产生接口费用。"),
             ],
             outputs=[io.Float.Output("score", display_name="分数"),
                      io.String.Output("report", display_name="比对报告")],

@@ -30,13 +30,13 @@ ERROR_HINTS = {
     "FailedOperation.ImageResolutionExceed": "提交图片尺寸超限，请缩小图片。",
     "FailedOperation.ImageResolutionTooSmall": "提交图片短边不足 64 像素，请更换图片。",
     "FailedOperation.ImageSizeExceed": "提交图片编码大小超限，请缩小图片。",
-    "FailedOperation.RequestTimeout": "腾讯云处理超时，请稍后修改重新请求编号再试。",
+    "FailedOperation.RequestTimeout": "腾讯云处理超时，请稍后将“重新比对（改值生效）”加 1，再点击运行。",
     "ResourceUnavailable.NotExist": "请先在腾讯云控制台开通人脸识别服务。",
     "ResourceUnavailable.LowBalance": "腾讯云账户余额不足，请在控制台检查余额。",
     "ResourceUnavailable.InArrears": "腾讯云账户已欠费，请在控制台处理。",
     "ResourceUnavailable.StopUsing": "腾讯云服务已停用，请检查控制台服务状态。",
     "ResourceUnavailable.Freeze": "腾讯云账户已冻结，请检查账户状态。",
-    "ClientNetworkError": "网络连接失败或请求超时，请检查网络，稍后修改重新请求编号再试。",
+    "ClientNetworkError": "网络连接失败或请求超时，请检查网络，稍后将“重新比对（改值生效）”加 1，再点击运行。",
 }
 
 
@@ -85,7 +85,7 @@ def compare_faces(settings, image_a, image_b, strategy, quality_control, rotate_
         response = requests.post(f"https://{HOST}/", data=body, headers=headers,
                                  timeout=settings.timeout_seconds, allow_redirects=False)
     except requests.exceptions.Timeout:
-        raise FaceCompareError("腾讯云请求超时，请稍后修改重新请求编号再试；本次没有有效分数。") from None
+        raise FaceCompareError("腾讯云请求超时，请稍后将“重新比对（改值生效）”加 1，再点击运行；本次没有有效分数。") from None
     except requests.exceptions.RequestException:
         raise FaceCompareError(safe_error("ClientNetworkError", None)) from None
     except Exception:
