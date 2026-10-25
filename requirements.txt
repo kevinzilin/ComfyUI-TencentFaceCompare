@@ -1,0 +1,3 @@
+# ComfyUI already supplies requests, Pillow, NumPy and torch.
+# No Tencent SDK is required.
+requests>=2.16.0,<3

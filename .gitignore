@@ -1,0 +1,7 @@
+config.json
+__pycache__/
+*.pyc
+.pytest_cache/
+dist/
+# Local error screenshot contains machine-specific diagnostic paths.
+/tests/ui-error.png
